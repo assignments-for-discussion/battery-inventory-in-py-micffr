@@ -1,20 +1,18 @@
 
-def count_batteries_by_usage(cycles):
-  return {
-    "lowCount": 0,
-    "mediumCount": 0,
-    "highCount": 0
-  }
-
-
-def test_bucketing_by_number_of_cycles():
-  print("Counting batteries by usage cycles...\n");
-  counts = count_batteries_by_usage([100, 300, 500, 600, 900, 1000])
-  assert(counts["lowCount"] == 2)
-  assert(counts["mediumCount"] == 3)
-  assert(counts["highCount"] == 1)
-  print("Done counting :)")
-
-
-if __name__ == '__main__':
-  test_bucketing_by_number_of_cycles()
+# python script showing battery details
+import psutil
+  
+# function returning time in hh:mm:ss
+def convertTime(seconds):
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    return "%d:%02d:%02d" % (hours, minutes, seconds)
+  
+# returns a tuple
+battery = psutil.sensors_battery()
+  
+print("Battery percentage : ", battery.percent)
+print("Power plugged in : ", battery.power_plugged)
+  
+# converting seconds to hh:mm:ss
+print("Battery left : ", convertTime(battery.secsleft))
